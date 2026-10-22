@@ -1,0 +1,182 @@
+[
+  {
+    "model": "inventory.asset",
+    "pk": 1,
+    "fields": {
+      "asset_tag": "CHG-001",
+      "asset_type": "USB-C Charger",
+      "location": "CS Lab Desk",
+      "status": "AVAILABLE",
+      "loan_duration": "04:00:00",
+      "is_retired": false
+    }
+  },
+  {
+    "model": "inventory.asset",
+    "pk": 2,
+    "fields": {
+      "asset_tag": "CHG-002",
+      "asset_type": "USB-C Charger",
+      "location": "CS Lab Desk",
+      "status": "CHECKED_OUT",
+      "loan_duration": "04:00:00",
+      "is_retired": false
+    }
+  },
+  {
+    "model": "inventory.asset",
+    "pk": 3,
+    "fields": {
+      "asset_tag": "CHG-003",
+      "asset_type": "USB-C Charger",
+      "location": "EIC Counter",
+      "status": "AVAILABLE",
+      "loan_duration": "04:00:00",
+      "is_retired": false
+    }
+  },
+  {
+    "model": "inventory.asset",
+    "pk": 4,
+    "fields": {
+      "asset_tag": "HDMI-001",
+      "asset_type": "HDMI Cable",
+      "location": "CS Lab Desk",
+      "status": "REPAIR",
+      "loan_duration": "04:00:00",
+      "is_retired": false
+    }
+  },
+  {
+    "model": "inventory.asset",
+    "pk": 5,
+    "fields": {
+      "asset_tag": "HDMI-002",
+      "asset_type": "HDMI Cable",
+      "location": "EIC Counter",
+      "status": "AVAILABLE",
+      "loan_duration": "04:00:00",
+      "is_retired": false
+    }
+  },
+  {
+    "model": "inventory.asset",
+    "pk": 6,
+    "fields": {
+      "asset_tag": "ADPT-001",
+      "asset_type": "USB-C to HDMI Adapter",
+      "location": "CS Lab Desk",
+      "status": "AVAILABLE",
+      "loan_duration": "04:00:00",
+      "is_retired": false
+    }
+  },
+  {
+    "model": "inventory.asset",
+    "pk": 7,
+    "fields": {
+      "asset_tag": "CALC-001",
+      "asset_type": "Graphing Calculator",
+      "location": "EIC Counter",
+      "status": "CHECKED_OUT",
+      "loan_duration": "1 00:00:00",
+      "is_retired": false
+    }
+  },
+  {
+    "model": "inventory.asset",
+    "pk": 8,
+    "fields": {
+      "asset_tag": "CALC-002",
+      "asset_type": "Graphing Calculator",
+      "location": "EIC Counter",
+      "status": "AVAILABLE",
+      "loan_duration": "1 00:00:00",
+      "is_retired": false
+    }
+  },
+  {
+    "model": "inventory.asset",
+    "pk": 9,
+    "fields": {
+      "asset_tag": "CALC-003",
+      "asset_type": "Graphing Calculator",
+      "location": "CS Lab Desk",
+      "status": "AVAILABLE",
+      "loan_duration": "1 00:00:00",
+      "is_retired": false
+    }
+  },
+  {
+    "model": "inventory.asset",
+    "pk": 10,
+    "fields": {
+      "asset_tag": "CAM-001",
+      "asset_type": "Webcam",
+      "location": "EIC Counter",
+      "status": "AVAILABLE",
+      "loan_duration": "1 00:00:00",
+      "is_retired": true
+    }
+  },
+  {
+    "model": "inventory.asset",
+    "pk": 11,
+    "fields": {
+      "asset_tag": "CAM-002",
+      "asset_type": "Webcam",
+      "location": "CS Lab Desk",
+      "status": "AVAILABLE",
+      "loan_duration": "1 00:00:00",
+      "is_retired": false
+    }
+  },
+  {
+    "model": "inventory.asset",
+    "pk": 12,
+    "fields": {
+      "asset_tag": "HEAD-001",
+      "asset_type": "Headphones",
+      "location": "CS Lab Desk",
+      "status": "AVAILABLE",
+      "loan_duration": "04:00:00",
+      "is_retired": false
+    }
+  },
+  {
+    "model": "inventory.asset",
+    "pk": 13,
+    "fields": {
+      "asset_tag": "HEAD-002",
+      "asset_type": "Headphones",
+      "location": "CS Lab Desk",
+      "status": "REPAIR",
+      "loan_duration": "04:00:00",
+      "is_retired": false
+    }
+  },
+  {
+    "model": "inventory.asset",
+    "pk": 14,
+    "fields": {
+      "asset_tag": "LAP-001",
+      "asset_type": "Loaner Laptop",
+      "location": "EIC Counter",
+      "status": "CHECKED_OUT",
+      "loan_duration": "3 00:00:00",
+      "is_retired": false
+    }
+  },
+  {
+    "model": "inventory.asset",
+    "pk": 15,
+    "fields": {
+      "asset_tag": "BRD-001",
+      "asset_type": "Embedded Dev Board",
+      "location": "CS Lab Desk",
+      "status": "AVAILABLE",
+      "loan_duration": "3 00:00:00",
+      "is_retired": false
+    }
+  }
+]
