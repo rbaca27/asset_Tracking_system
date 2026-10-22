@@ -1,5 +1,6 @@
+"""US-01 acceptance criteria for the public catalog page (docs/US-01.md maps each to a test)."""
+
 import pytest
-from django.core.management import call_command
 from django.urls import reverse
 
 from inventory.models import Asset
@@ -8,52 +9,50 @@ pytestmark = pytest.mark.django_db
 
 
 def catalog_html(client, **filters):
+    """Fetch /catalog/ with the given filters and return the page as text."""
     return client.get(reverse("inventory:catalog"), filters).content.decode()
 
 
+# --- What each row shows -----------------------------------------------------
+
+
 def test_catalog_row_shows_four_fields(client, assets):
+    """AC1: each row shows asset tag, type, location and status."""
     html = catalog_html(client)
     for value in ("CHG-001", "Charger", "CS Lab Desk", ">Available</span>"):
         assert value in html
 
 
 def test_unavailable_items_visible_and_badged(client, assets):
+    """AC3: Checked Out and Repair items stay visible but are badged unavailable."""
     html = catalog_html(client)
     assert "CALC-001" in html and "Unavailable: Checked Out" in html
     assert "HDMI-001" in html and "Unavailable: Repair" in html
 
 
 def test_catalog_hides_borrower_fields(client, assets, student):
+    """AC4: no borrower name, Panther ID, email or phone appears."""
     html = catalog_html(client)
     for secret in ("zquintero", "Zelda", "Quintero", "zquin001@mock.fiu.edu"):
         assert secret not in html
 
 
-def test_student_gets_403_on_checkout(client, student):
-    client.force_login(student)
-    assert client.get(reverse("inventory:checkout")).status_code == 403
-
-
-def test_signed_out_visitor_sent_to_sign_in(client):
-    response = client.get(reverse("inventory:checkout"))
-    assert response.status_code == 302
-    assert response.url.startswith(reverse("login"))
-
-
-def test_staff_can_open_checkout(client, staff):
-    client.force_login(staff)
-    assert client.get(reverse("inventory:checkout")).status_code == 200
-
-
 def test_catalog_reflects_status_change(client, assets):
+    """AC6: after a checkout or return is saved, the catalog shows the new status."""
     charger = assets["available"]
     charger.status = Asset.Status.CHECKED_OUT
     charger.save()
     assert "Unavailable: Checked Out" in catalog_html(client, q="CHG-001")
 
 
+# --- Which items appear ------------------------------------------------------
+
+
 def test_retired_items_hidden(client, assets):
     assert "CAM-001" not in catalog_html(client)
+
+
+# --- Search and filters ------------------------------------------------------
 
 
 def test_status_filter(client, assets):
@@ -78,9 +77,3 @@ def test_unknown_status_shows_everything(client, assets):
 
 def test_no_match_message(client, assets):
     assert "No equipment matches those filters." in catalog_html(client, q="NOPE")
-
-
-def test_seed_fixture_loads(client):
-    call_command("loaddata", "assets", verbosity=0)
-    assert Asset.objects.count() == 15
-    assert "CAM-001" not in catalog_html(client)

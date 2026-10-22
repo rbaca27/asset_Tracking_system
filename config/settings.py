@@ -71,7 +71,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 
-# Database
+# Database: PostgreSQL. Set DB_PASSWORD in your terminal (see docs/SETUP.md).
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {

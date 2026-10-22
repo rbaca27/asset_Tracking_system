@@ -1,3 +1,5 @@
+"""Rules the Asset table enforces, in Python and inside PostgreSQL."""
+
 import pytest
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
