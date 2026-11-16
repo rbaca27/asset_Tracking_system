@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Activate account{% endblock %}
+{% block content %}
+  <h1 class="h3 mb-3">Activate your account</h1>
+  <p class="text-body-secondary">First visit only. Use the one-time code the department gave you.</p>
+  <form method="post" class="col-md-4">
+    {% csrf_token %}
+    {% for error in form.non_field_errors %}<div class="alert alert-danger">{{ error }}</div>{% endfor %}
+    {% for field in form %}{% include "inventory/_field.html" %}{% endfor %}
+    <button class="btn btn-primary">Activate</button>
+  </form>
+{% endblock %}

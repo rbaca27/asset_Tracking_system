@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Roster import{% endblock %}
+{% block content %}
+  <h1 class="h3 mb-3">Import semester roster</h1>
+
+  {% if row_errors %}
+    <div class="alert alert-danger">
+      <p class="mb-1"><strong>The file was rejected. Nothing was saved.</strong></p>
+      <ul class="mb-0">{% for error in row_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+    </div>
+  {% endif %}
+
+  {% if record %}
+    <div class="alert alert-success">
+      {{ record.term }} roster imported: {{ record.created }} created, {{ record.updated }} updated,
+      {{ record.deactivated }} deactivated.
+    </div>
+    {% if codes %}
+      <h2 class="h5">One-time activation codes</h2>
+      <p class="small text-body-secondary">Shown only once. Hand each student their code; it expires unused.</p>
+      <table class="table table-sm">
+        <thead><tr><th>Username</th><th>Name</th><th>Code</th></tr></thead>
+        <tbody>{% for username, name, code in codes %}<tr><td>{{ username }}</td><td>{{ name }}</td><td><code>{{ code }}</code></td></tr>{% endfor %}</tbody>
+      </table>
+    {% endif %}
+  {% endif %}
+
+  <form method="post" enctype="multipart/form-data" class="col-md-5">
+    {% csrf_token %}
+    {% for field in form %}{% include "inventory/_field.html" %}{% endfor %}
+    <button class="btn btn-primary">Import</button>
+  </form>
+{% endblock %}

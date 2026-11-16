@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Overdue{% endblock %}
+{% block content %}
+  <h1 class="h3 mb-3">Overdue loans</h1>
+  <p class="text-body-secondary small">Mock contact fields for in-app follow-up. The prototype sends no email or SMS.</p>
+  <div class="table-responsive">
+  <table class="table align-middle">
+    <thead><tr>
+      <th>Asset tag</th><th>Type</th><th>Borrower</th><th>Name</th><th>Mock Panther ID</th>
+      <th>Email</th><th>Phone</th><th>Due</th><th>Days overdue</th>
+    </tr></thead>
+    <tbody>
+    {% for loan, days in loans %}
+      <tr>
+        <td>{{ loan.asset.asset_tag }}</td>
+        <td>{{ loan.asset.asset_type }}</td>
+        <td>{{ loan.borrower.username }}</td>
+        <td>{{ loan.borrower.profile.display_name }}</td>
+        <td>{{ loan.borrower.profile.panther_id }}</td>
+        <td>{{ loan.borrower.email }}</td>
+        <td>{{ loan.borrower.profile.phone }}</td>
+        <td>{{ loan.due_at }}</td>
+        <td>{{ days }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="9">Nothing is overdue.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+{% endblock %}

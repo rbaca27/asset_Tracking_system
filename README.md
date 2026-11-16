@@ -13,36 +13,36 @@ see what is available. Built with Python, Django, PostgreSQL and Bootstrap (serv
 
 ```
 equipment-checkout/
-├── manage.py                 command runner: runserver, migrate, loaddata, ...
+├── manage.py                 command runner: runserver, migrate, seed_demo, ...
 ├── pytest.ini                tells pytest which Django settings to use
 ├── requirements.txt          packages to install
 ├── config/                   site-wide settings and the top-level URL list
-│   ├── settings.py           database connection, installed apps
-│   └── urls.py               / -> catalog, /admin/, /accounts/ (sign-in)
-├── inventory/                the app: everything about equipment
-│   ├── models.py             database tables (Asset)
-│   ├── migrations/           saved table changes; commit these
-│   ├── fixtures/assets.json  15 demo items
-│   ├── forms.py              catalog filter boxes
-│   ├── permissions.py        @staff_required (Students get 403)
+├── inventory/                the app
+│   ├── models.py             Asset, Profile, RosterImport, Loan, LoanEvent
+│   ├── services.py           LoanService and AccountService: every multi-table write
+│   ├── permissions.py        @staff_required, @admin_required (Groups: Student, Staff, Admin)
+│   ├── admin.py              US-07 Admin inventory in the Django admin site
+│   ├── forms.py              catalog filters, desk forms, account forms
 │   ├── urls.py               this app's URLs, one section per story
 │   ├── views/                one file per story
-│   │   ├── catalog.py        US-01 catalog page
-│   │   └── checkout.py       US-03 placeholder (Staff only)
-│   ├── templates/            HTML: base.html, catalog.html, sign-in page
-│   ├── management/commands/  seed_demo_users: temporary demo logins
-│   └── tests/                pytest tests, grouped by topic
-└── docs/                     setup, team guide, story notes
+│   ├── templates/            one page per view
+│   ├── fixtures/             assets.json (15 items), mock_roster.csv (6 students)
+│   ├── management/commands/  seed_demo: demo inventory, logins, roster, loans
+│   ├── migrations/           saved table changes; commit these
+│   └── tests/                one test file per story, one test per acceptance criterion
+└── docs/                     setup, team guide, one note per story (US-01.md ... US-09.md)
 ```
 
 ## Story status
 
-| Story | Status | Where it lives |
+| Story | Status | Notes |
 | --- | --- | --- |
-| US-01 Public catalog | Done, 19 tests passing | `views/catalog.py`, `catalog.html`, `forms.py` |
-| US-02 Accounts and roles | Not started | replaces `seed_demo_users`, extends `permissions.py` |
-| US-03 Checkout | Placeholder page only | `views/checkout.py` |
-| US-04 Return and damage note | Not started | new `views/` file |
-| US-05 Student's own loans | Not started | new `views/` file |
-| US-06 Overdue list and event log | Not started | new `views/` file |
-| US-07 Admin inventory | Not started | extends `models.py`, `admin.py` |
+| US-01 Public catalog | Done | [docs/US-01.md](docs/US-01.md) |
+| US-02 Semester roster import | Done | [docs/US-02.md](docs/US-02.md) |
+| US-03 Walk-up checkout | Done | [docs/US-03.md](docs/US-03.md) |
+| US-04 Return and damage note | Done | [docs/US-04.md](docs/US-04.md) |
+| US-05 Student's own loans | Done | [docs/US-05.md](docs/US-05.md) |
+| US-06 Overdue list and event log | Done | [docs/US-06.md](docs/US-06.md) |
+| US-07 Admin inventory and seed data | Done | [docs/US-07.md](docs/US-07.md) |
+| US-08 Activation and sign-in | Done | [docs/US-08.md](docs/US-08.md) |
+| US-09 Staff accounts and roles | Done | [docs/US-09.md](docs/US-09.md) |

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Loan {{ loan.asset.asset_tag }}{% endblock %}
+{% block content %}
+  <h1 class="h3 mb-3">{{ loan.asset.asset_tag }} <small class="text-body-secondary">{{ loan.asset.asset_type }}</small></h1>
+  <dl class="row">
+    <dt class="col-sm-3">Checked out</dt><dd class="col-sm-9">{{ loan.checked_out_at }}</dd>
+    <dt class="col-sm-3">Due</dt><dd class="col-sm-9">{{ loan.due_at }}{% if loan.is_active and loan.due_at < now %} <span class="badge text-bg-danger">Overdue</span>{% endif %}</dd>
+    <dt class="col-sm-3">Returned</dt><dd class="col-sm-9">{{ loan.returned_at|default:"Not yet" }}</dd>
+  </dl>
+  <a href="{% url 'inventory:my_loans' %}">Back to my loans</a>
+{% endblock %}

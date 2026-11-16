@@ -3,7 +3,7 @@
 import pytest
 from django.urls import reverse
 
-from inventory.models import Asset
+from inventory.services import LoanService
 
 pytestmark = pytest.mark.django_db
 
@@ -30,19 +30,20 @@ def test_unavailable_items_visible_and_badged(client, assets):
     assert "HDMI-001" in html and "Unavailable: Repair" in html
 
 
-def test_catalog_hides_borrower_fields(client, assets, student):
+def test_catalog_hides_borrower_fields(client, assets, student, staff):
     """AC4: no borrower name, Panther ID, email or phone appears."""
+    LoanService.checkout(staff, student.username, "CHG-001")  # the item now has a borrower
     html = catalog_html(client)
-    for secret in ("zquintero", "Zelda", "Quintero", "zquin001@mock.fiu.edu"):
+    for secret in ("zquin001", "Zelda", "Quintero", "6000001", "305-555-0101"):
         assert secret not in html
 
 
-def test_catalog_reflects_status_change(client, assets):
+def test_catalog_reflects_status_change(client, assets, student, staff):
     """AC6: after a checkout or return is saved, the catalog shows the new status."""
-    charger = assets["available"]
-    charger.status = Asset.Status.CHECKED_OUT
-    charger.save()
+    LoanService.checkout(staff, student.username, "CHG-001")
     assert "Unavailable: Checked Out" in catalog_html(client, q="CHG-001")
+    LoanService.return_item(staff, "CHG-001", damaged=True, note="Frayed cable")
+    assert "Unavailable: Repair" in catalog_html(client, q="CHG-001")
 
 
 # --- Which items appear ------------------------------------------------------

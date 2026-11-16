@@ -7,11 +7,29 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 </head>
 <body>
-  <nav class="navbar bg-body-tertiary mb-4">
-    <div class="container">
+  <nav class="navbar navbar-expand bg-body-tertiary mb-4">
+    <div class="container flex-wrap">
       <a class="navbar-brand" href="{% url 'inventory:catalog' %}">Equipment Checkout</a>
+      <ul class="navbar-nav me-auto flex-wrap">
+        <li class="nav-item"><a class="nav-link" href="{% url 'inventory:catalog' %}">Catalog</a></li>
+        {% if user.is_authenticated %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'inventory:my_loans' %}">My loans</a></li>
+        {% endif %}
+        {% if is_staff_user %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'inventory:checkout' %}">Checkout</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'inventory:return' %}">Return</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'inventory:overdue' %}">Overdue</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'inventory:event_log' %}">Event log</a></li>
+        {% endif %}
+        {% if is_admin_user %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'admin:inventory_asset_changelist' %}">Inventory</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'inventory:roster_import' %}">Roster</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'inventory:staff_roles' %}">Staff</a></li>
+        {% endif %}
+      </ul>
       <div>
         {% if user.is_authenticated %}
+          <span class="text-body-secondary small me-2">{{ user.username }}</span>
           <form method="post" action="{% url 'logout' %}" class="d-inline">
             {% csrf_token %}
             <button class="btn btn-outline-secondary btn-sm">Sign out</button>
@@ -23,6 +41,9 @@
     </div>
   </nav>
   <main class="container">
+    {% for message in messages %}
+      <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+    {% endfor %}
     {% block content %}{% endblock %}
   </main>
 </body>

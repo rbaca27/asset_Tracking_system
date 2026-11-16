@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Staff accounts{% endblock %}
+{% block content %}
+  <h1 class="h3 mb-3">Staff accounts</h1>
+  <div class="row g-4">
+    <div class="col-md-6">
+      <h2 class="h5">Create a Staff account</h2>
+      <form method="post">
+        {% csrf_token %}
+        {% for field in create_form %}{% include "inventory/_field.html" %}{% endfor %}
+        <button class="btn btn-primary" name="create" value="1">Create</button>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <h2 class="h5">Add the Staff role to an existing account</h2>
+      <form method="post">
+        {% csrf_token %}
+        {% for field in role_form %}{% include "inventory/_field.html" %}{% endfor %}
+        <button class="btn btn-primary" name="add" value="1">Add Staff role</button>
+      </form>
+    </div>
+  </div>
+
+  <h2 class="h5 mt-4">Current Staff</h2>
+  <table class="table align-middle">
+    <tbody>
+    {% for member in staff_members %}
+      <tr>
+        <td>{{ member.username }}</td>
+        <td class="text-end">
+          <form method="post" action="{% url 'inventory:remove_staff_role' %}">
+            {% csrf_token %}
+            <input type="hidden" name="username" value="{{ member.username }}">
+            <button class="btn btn-outline-danger btn-sm">Remove Staff role</button>
+          </form>
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td>No Staff accounts yet.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

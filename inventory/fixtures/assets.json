@@ -18,7 +18,7 @@
       "asset_tag": "CHG-002",
       "asset_type": "USB-C Charger",
       "location": "CS Lab Desk",
-      "status": "CHECKED_OUT",
+      "status": "AVAILABLE",
       "loan_duration": "04:00:00",
       "is_retired": false
     }
@@ -78,7 +78,7 @@
       "asset_tag": "CALC-001",
       "asset_type": "Graphing Calculator",
       "location": "EIC Counter",
-      "status": "CHECKED_OUT",
+      "status": "AVAILABLE",
       "loan_duration": "1 00:00:00",
       "is_retired": false
     }
@@ -162,7 +162,7 @@
       "asset_tag": "LAP-001",
       "asset_type": "Loaner Laptop",
       "location": "EIC Counter",
-      "status": "CHECKED_OUT",
+      "status": "AVAILABLE",
       "loan_duration": "3 00:00:00",
       "is_retired": false
     }
