@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Return{% endblock %}
+{% block content %}
+  <h1 class="h3 mb-3">Return equipment</h1>
+  <form method="post" class="col-md-5">
+    {% csrf_token %}
+    {% for field in form %}{% include "inventory/_field.html" %}{% endfor %}
+    <button class="btn btn-primary">Process return</button>
+  </form>
+{% endblock %}

@@ -49,12 +49,21 @@ This lasts only for that Terminal tab. In a new tab or after restarting PyCharm,
 
 ```bash
 python manage.py migrate
-python manage.py loaddata assets
-python manage.py seed_demo_users
+python manage.py seed_demo
 ```
 
-`migrate` creates the tables. `loaddata assets` adds 15 demo items. `seed_demo_users` creates logins
-`student1`, `staff1` and `admin1`, all with password `demo-pass-123`.
+`migrate` creates the tables and the Student, Staff and Admin groups. `seed_demo` adds 15 demo items,
+imports the mock roster in `inventory/fixtures/mock_roster.csv`, and creates three demo loans (one overdue).
+Logins, all with password `demo-pass-123`:
+
+| Login | Role | Try |
+| --- | --- | --- |
+| `zquin001` | Student (already activated) | My loans |
+| `staff1` | Staff | Checkout, Return, Overdue, Event log |
+| `admin1` | Admin | everything above, plus Inventory, Roster, Staff |
+
+The other rostered students are not activated. `seed_demo` prints their one-time codes; use one at
+http://127.0.0.1:8000/accounts/activate/ to try activation.
 
 **6. Run the site.**
 

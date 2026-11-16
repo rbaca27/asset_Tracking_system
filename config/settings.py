@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 import os
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -63,6 +64,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "inventory.context_processors.roles",
             ],
         },
     },
@@ -126,3 +128,6 @@ STATIC_URL = "static/"
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "inventory:catalog"
 LOGOUT_REDIRECT_URL = "inventory:catalog"
+
+# US-08: how long a one-time activation code from a roster import stays valid.
+ACTIVATION_CODE_LIFETIME = timedelta(days=30)
